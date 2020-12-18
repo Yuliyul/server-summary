@@ -21,6 +21,8 @@ async function start() {
             'mongodb+srv://yuliya:kRZJB9MfbkvGtjv@cluster0.odwjp.mongodb.net/localmachines',
             {
                 useNewUrlParser: true,
+                useUnifiedTopology: true,
+
                 //useFindAndModify: false,
             }
         );
