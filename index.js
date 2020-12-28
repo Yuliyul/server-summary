@@ -1,5 +1,6 @@
 const express = require('express');
-const PORT = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const expresshbs = require('express-handlebars');
 const app = express();
@@ -13,6 +14,7 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(CrudRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 async function start() {
@@ -22,8 +24,8 @@ async function start() {
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-
-                //useFindAndModify: false,
+                useCreateIndex: true,
+                useFindAndModify: false,
             }
         );
         app.listen(PORT, () => {

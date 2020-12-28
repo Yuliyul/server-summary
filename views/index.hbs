@@ -1,26 +1,76 @@
 <h1>List of local machines</h1>
 {{#if PCList.length}}
-<table>
-    <tr>
-        <th>IP</th>
-        <th>CPU</th>
-        <th>Memory</th>
-        <th>Domain</th>
-        <th>Kasse</th>
-        <th>Restart</th>
-    </tr>
-    {{#each PCList}}
-    <tr>
-        <td>{{ip}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><form method="POST" action="/restart"><input type="hidden" value="{{_id}}" name="id">
-        <button class="btn">Restart</button></form></td>
-    </tr>
-    {{/each}}
-</table>
+<div class="row">
+    <div class="col s2">IP</div>
+    <div class="col s2">Domain</div>
+    <div class="col s2">Kasse</div>
+    <div class="col s2">Last update</div>
+    <div class="col s2">Restart</div>
+    <div class="col s2">Delete</div>
+</div>
+<ul class="collapsible">
+{{#each PCList}}
+    <li >
+      <div class="collapsible-header row">
+          <div class="row">
+            <div class="col s2">{{extip}}</div>            
+            <div class="col s2">{{domainName}}</div>
+            <div class="col s2">{{kasse}}</div>
+            <div class="col s2">{{updatedAt}}</div>            
+            <div class="col s2"><form method="POST" action="/restart">
+              <input type="hidden" value="{{_id}}" name="id">
+              <button class="btn waves-effect waves-light" type="submit" name="restart">restart                
+              </button>              
+            </form>
+          </div>
+           <div class="col s2"><form method="POST" action="/restart">
+              <input type="hidden" value="{{_id}}" name="id">
+              <button class="btn waves-effect waves-light" type="submit" name="delete">delete                
+              </button>
+            </form>
+          </div>
+          </div>
+               
+      </div>
+      <div class="collapsible-body row">
+         <div class="row">
+            <div class="col s6">
+              <p>CPU : {{cpu}}</p>
+              <p>Firefox version : {{FFVersion}}</p>
+              <p>Chrome version : {{ChVersion}}</p>
+              <p>disk С Free Space : {{diskСFreeSpace}}</p>
+              <p>disk С Space : {{diskСSpace}}</p>
+              <p>free system memory : {{freesysmem}}</p>
+              <p>os name : {{osname}}</p>
+              <p>platform : {{platform}}</p>
+              <p>total system memory : {{totalmem}}</p>
+              <p>uptime : {{uptime}}</p>
+              <p>mysqlversion : {{mysqlversion}}</p>
+            </div>
+            <div class="col s6">
+              <h5>FiscalLastLine</h5>
+              {{#each FiscalLastLine}}
+              <p>* {{.}}</p>
+              {{/each}}
+              <h5>terminalLastLine</h5>
+              {{#each terminalLastLine}}
+              <p>* {{.}}</p>
+              {{/each}}
+              <h5>phpLastLine</h5>
+              {{#each phpLastLine}}
+              <p>* {{.}}</p>
+              {{/each}}
+            </div>
+          </div>  
+      </div>
+    </li>
+    {{/each}}   
+  </ul>
 {{else}}
 <h2>No data</h2>
 {{/if}}
+<script>
+    $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
